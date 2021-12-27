@@ -244,6 +244,7 @@ if test -f ${srcdir}/support/shobj-conf; then
 #	*curses*|*termcap*|*termlib*)	;;
 #	*)			SHLIB_LIBS="$SHLIB_LIBS $TERMCAP_LIB" ;;
 #	esac
+        SHLIB_LIBS="$SHLIB_LIBS $TERMCAP_LIB"
 	
         AC_SUBST(SHOBJ_CC)
         AC_SUBST(SHOBJ_CFLAGS)
