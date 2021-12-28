@@ -27,6 +27,9 @@
 
 #include <stdio.h>		/* Just for NULL.  Yuck. */
 #include <sys/types.h>
+#ifdef _WIN32
+#include <pthread.h>
+#endif
 #include <signal.h>
 
 #if defined (HAVE_UNISTD_H)
@@ -178,7 +181,10 @@ _rl_handle_signal (int sig)
 {
   int block_sig;
 
-#if defined (HAVE_POSIX_SIGNALS)
+#if defined(__MINGW32__)
+  _sigset_t set, oset;
+  sighandler_cxt dummy_cxt;    /* needed for rl_set_sighandler call */
+#elif defined (HAVE_POSIX_SIGNALS)
   sigset_t set, oset;
 #else /* !HAVE_POSIX_SIGNALS */
 #  if defined (HAVE_BSD_SIGNALS)
